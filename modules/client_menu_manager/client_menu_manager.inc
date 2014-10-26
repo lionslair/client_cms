@@ -90,7 +90,7 @@ function _build_client_cms_menu_links() {
 }
 
 /**
- * Builds the menu from the links generated from _build_spring_cms_menu_links().
+ * Builds the menu from the links generated from _build_client_cms_menu_links().
  *
  */
 function _build_client_cms_menu() {
@@ -137,7 +137,7 @@ function _build_client_cms_menu() {
 }
 
 /**
- * Builds the menu from the links generated from _build_spring_cms_menu_links() and factors in color variation.
+ * Builds the menu from the links generated from _build_client_cms_menu_links() and factors in color variation.
  *
  */
 function _build_client_cms_menu_with_color() {

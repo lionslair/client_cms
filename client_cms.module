@@ -104,7 +104,7 @@ function client_cms_admin_menu_output_alter(&$content) {
       $menu_tree = menu_tree_all_data('client-cms-menu');
       $add_client_link = _build_client_cms_links($menu_tree);
 
-      //Add the Spring CMS link to the menu.
+      //Add the Client CMS link to the menu.
       $content['menu']['admin/client_cms'] += $add_client_link;
     }
   }

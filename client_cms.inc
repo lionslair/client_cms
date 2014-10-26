@@ -78,12 +78,7 @@ function _client_cms_get_company_email() {
 
 /**
  * Create HTML content for tree menu, which can be handled by
- * smoothmenu
- *
- * @param $items
- *  Filled out array of menu items, default view in _springify_get_tree_items()
- * @param $parent_link
- *  If menu has sub-menus this flag can disable parent menu link
+ * ddsmoothmenu
  */
 function theme_client_cms_main_menu() {
   $output = '<div id="navigation" class="ddsmoothmenu">';

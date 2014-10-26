@@ -34,11 +34,11 @@ function client_menu_manager_block_view($delta = '') {
   switch ($delta) {
     case 'client_admin_menu':
     drupal_add_js(drupal_get_path('module', 'client_menu_manager') . '/js/client_menu.js', array('type' => 'file', 'scope' => 'header'));
-    drupal_add_js(array('springweb' => array('module_path' => drupal_get_path('module', 'client_menu_manager'))), array('type' => 'setting'));
+    drupal_add_js(array('client_cms' => array('module_path' => drupal_get_path('module', 'client_menu_manager'))), array('type' => 'setting'));
     drupal_add_css(drupal_get_path('module', 'client_menu_manager') . '/css/client_menu.css');
 
     $block['subject'] = '';
-    $block['content'] = _build_spring_cms_menu();
+    $block['content'] = _build_client_cms_menu();
     break;
   }
 

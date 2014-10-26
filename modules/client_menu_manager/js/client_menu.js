@@ -53,7 +53,7 @@ var ddsmoothmenu = {
       this.istopheader = $curobj.parents("ul").length == 1 ? true : false //is top level header?
       $subul.css({top: this.istopheader ? this._dimensions.h + "px" : 0})
       $curobj.children("a:eq(0)").css(this.istopheader ? {paddingRight: smoothmenu.arrowimages.down[2]} : {}).append(//add arrow images
-              '<img src="/' + Drupal.settings.springweb.module_path + (this.istopheader && setting.orientation != 'v' ? smoothmenu.arrowimages.down[1] : smoothmenu.arrowimages.right[1])
+              '<img src="/' + Drupal.settings.client_menu.module_path + (this.istopheader && setting.orientation != 'v' ? smoothmenu.arrowimages.down[1] : smoothmenu.arrowimages.right[1])
               + '" class="' + (this.istopheader && setting.orientation != 'v' ? smoothmenu.arrowimages.down[0] : smoothmenu.arrowimages.right[0])
               + '" style="border:0;" />');
       if (smoothmenu.shadow.enabled) {
