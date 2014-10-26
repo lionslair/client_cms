@@ -16,7 +16,7 @@ function _create_client_cms_menu_links() {
   $item_manage_menus = array(
     'link_path' => 'admin/structure/menu/manage/main-menu',
     'link_title' => 'Manage Menus',
-    'menu_name' => 'cleint-cms-menu',
+    'menu_name' => 'client-cms-menu',
     'router_path' => 'admin/client_cms/manage_menu',
     'weight' => '-49',
     );

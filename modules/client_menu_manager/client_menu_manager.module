@@ -19,7 +19,9 @@ function client_menu_manager_block_info() {
     'cache' => DRUPAL_NO_CACHE,
     'pages' => "admin/client_cms*\nadmin/structure/menu*\nnode/add/basic-page",
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'region' => 'management_menu',
+    // 'region' => 'management_menu',
+    'region' => 'content',
+    'weight' => 0,
     'status' => 1
     );
 
