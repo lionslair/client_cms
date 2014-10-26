@@ -1,0 +1,46 @@
+<?php
+
+module_load_include('inc', 'client_menu_manager', 'client_menu_manager');
+
+/**
+ * Implements hook_menu().
+ */
+function client_menu_manager_menu() {
+}
+
+/**
+ * Implements hook_block_info()
+ */
+function client_menu_manager_block_info() {
+  $blocks = array();
+
+  $blocks['client_admin_menu'] = array(
+    'info' => t('Client Admin Menu'),
+    'cache' => DRUPAL_NO_CACHE,
+    'pages' => "admin/client_cms*\nadmin/structure/menu*\nnode/add/basic-page",
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'region' => 'management_menu',
+    'status' => 1
+    );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */
+function client_menu_manager_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'client_admin_menu':
+    drupal_add_js(drupal_get_path('module', 'client_menu_manager') . '/js/client_menu.js', array('type' => 'file', 'scope' => 'header'));
+    drupal_add_js(array('springweb' => array('module_path' => drupal_get_path('module', 'client_menu_manager'))), array('type' => 'setting'));
+    drupal_add_css(drupal_get_path('module', 'client_menu_manager') . '/css/client_menu.css');
+
+    $block['subject'] = '';
+    $block['content'] = _build_spring_cms_menu();
+    break;
+  }
+
+  return $block;
+}

@@ -1,0 +1,154 @@
+<?php
+
+module_load_include('inc', 'client_cms', 'client_cms');
+
+/**
+ * Implementation of hook_init().
+ */
+function client_cms_init() {
+  global $theme, $user;
+  // If we have a user logged in, then we have a session.
+
+    // Redirect already logged in administrator to the Client CMS Home
+  if (user_access('administer client cms') && arg(0) == 'user' && arg(1) == 'login') {
+    drupal_set_message('You are already logged in.');
+    drupal_goto('admin/client_cms');
+  }
+
+  drupal_add_js(array('page_url' => $_GET['q']), 'setting');
+}
+
+/**
+ * Define menu items and page callbacks.
+ * Implements hook_menu().
+ */
+function client_cms_menu() {
+  $items = array();
+  $items['admin/client_cms'] = array(
+    'title' => 'Client CMS',
+    'description' => '',
+    'access arguments' => array('administer client cms'),
+    'page callback' => 'theme',
+    'page arguments' => array('client_cms_home'),
+    'menu_name' => 'management',
+    'type' => MENU_NORMAL_ITEM,
+    );
+  $items['admin/config/client_cms/settings'] = array(
+    'title' => 'Configure the Client CMS',
+    'description' => '',
+    'access arguments' => array('administer client cms'),
+    'page callback' => '_get_client_home_cotent',
+    'type' => MENU_CALLBACK,
+    );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_menu_alter().
+ */
+function client_cms_menu_alter(&$items) {
+  foreach (array_keys($items) as $path) {
+    $pieces = explode('/', $path);
+    if (isset($pieces[1]) && $pieces[1] == 'client_cms' && isset($pieces[2])) {
+      $items[$path]['menu_name'] = 'client-cms-menu';
+    }
+  }
+}
+
+/**
+ * Define user permissions.
+ * Implements hook_permission().
+ */
+function client_cms_permission() {
+  return array(
+    'administer client cms' => array(
+      'title' => t('Access Client CMS'),
+      'description' => t('Allows users to Administer Client CMS'),
+      ),
+    );
+}
+
+
+/**
+ * Implementation of hook_USER_LOGIN_alter().
+ */
+function client_cms_form_user_login_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'client_cms_form_user_login_submit';
+}
+
+/**
+ * Submit handler for Login form
+ */
+function client_cms_form_user_login_submit(&$form, &$form_state) {
+  // If user has a special role, then redirect it to the Client Web Manage Homepage
+  if (user_access('administer client cms')) {
+    $form_state['redirect'] = 'admin/client_cms';
+  } else {
+    $form_state['redirect'] = '';
+  }
+}
+
+/**
+ * Implements hook_admin_menu_output_alter()
+ *
+ * menu: The administrative menu of links below the path 'admin/*'.
+ * icon: The icon menu.
+ * user: The user items and links.
+ *
+ * @param array $content
+ */
+function client_cms_admin_menu_output_alter(&$content) {
+  foreach ($content['menu'] as $key => $menu_links) {
+    if ($key == 'admin/client_cms') {
+      $menu_tree = menu_tree_all_data('client-cms-menu');
+      $add_client_link = _build_client_cms_links($menu_tree);
+
+      //Add the Spring CMS link to the menu.
+      $content['menu']['admin/client_cms'] += $add_client_link;
+    }
+  }
+}
+
+/*
+ * Implements hook_theme().
+ */
+function client_cms_theme() {
+  return array(
+    'client_cms_home' => array(
+      'template' => 'client-cms-home',
+      ),
+    'client_cms_main_menu' => array(
+      'variables' => array(),
+      'file' => 'client_cms.inc',
+      ),
+    );
+}
+
+
+/**
+ * Implements hook_date_formats()
+ */
+function client_cms_date_formats() {
+  return array(
+    array(
+      'type' => 'client_cms_short',
+      'format' => 'd/m/Y',
+      'locales' => array(),
+      ),
+    array(
+      'type' => 'client_cms_short',
+      'format' => 'm/d/Y',
+      'locales' => array(),
+      )
+    );
+}
+
+/**
+ * Implements hook_date_format_types()
+ */
+function client_cms_date_format_types() {
+  return array(
+    'client_cms_short' => t('Client CMS Short'),
+    );
+}

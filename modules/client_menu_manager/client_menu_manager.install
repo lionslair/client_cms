@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function client_menu_manager_install() {
+  // Populate the default {node_access} record.
+  _create_client_cms_menu_links();
+  return t('Added the client cms and client website menu options');
+
+    // In case of an error, simply throw an exception with an error message.
+  throw new DrupalUpdateException('Something went wrong; here is what you should do.');
+}
+
+function _create_client_cms_menu_links() {
+  $item_manage_menus = array(
+    'link_path' => 'admin/structure/menu/manage/main-menu',
+    'link_title' => 'Manage Menus',
+    'menu_name' => 'cleint-cms-menu',
+    'router_path' => 'admin/client_cms/manage_menu',
+    'weight' => '-49',
+    );
+  $item_manage_menus_mid = menu_link_save($item_manage_menus);
+
+  $item_manage_page_menu = array(
+    'link_path' => 'admin/structure/menu/manage/main-menu',
+    'link_title' => 'Manage Page Menu',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_menu/manage_page_menu',
+    'plid' => $item_manage_menus_mid,
+    'weight' => '-50',
+    );
+  $item_manage_page_menu_mid = menu_link_save($item_manage_page_menu);
+
+  $item_manage_page_menu_add = array(
+    'link_path' => 'admin/structure/menu/manage/main-menu/add',
+    'link_title' => 'Add Page Menu',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_menu/manage_page_menu/add',
+    'plid' => $item_manage_page_menu_mid,
+    );
+  $item_manage_page_menu_add_mid = menu_link_save($item_manage_page_menu_add);
+
+  $item_manage_cms_menu = array(
+    'link_path' => 'admin/structure/menu/manage/client-cms-menu',
+    'link_title' => 'Manage CMS Menu',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_menu/manage_cms_menu',
+    'plid' => $item_manage_menus_mid,
+    'weight' => '-49',
+    );
+  $item_manage_cms_menu_mid = menu_link_save($item_manage_cms_menu);
+
+  $item_manage_cms_menu_add = array(
+    'link_path' => 'admin/structure/menu/manage/client-cms-menu/add',
+    'link_title' => 'Add CMS Menu',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_menu/manage_cms_menu/add',
+    'plid' => $item_manage_cms_menu_mid,
+    );
+  $item_manage_cms_menu_add_mid = menu_link_save($item_manage_cms_menu_add);
+}

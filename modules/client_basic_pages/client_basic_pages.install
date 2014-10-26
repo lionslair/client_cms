@@ -1,0 +1,68 @@
+<?php
+
+function client_basic_pages_install() {
+  // use get_t() to get the name of our localization function for translation
+  // during install, when t() is not available.
+  $t = get_t();
+
+  $name = 'basic_page';
+
+  // Define the node type.
+  $basic_page_node = array(
+    'type' => $name,
+    'name' => $t('Basic Page'),
+    'base' => 'node_content',
+    'description' => $t('This content type allows you to add basic pages to your website.'),
+    'body_label' => $t('Main content for the page.'),
+    'custom' => TRUE,
+    'locked' => TRUE,
+    'title_label' => 'Page Title'
+    );
+
+  $content_type = node_type_set_defaults($basic_page_node);
+  node_add_body_field($content_type);
+
+  // Check if we create content type or update.
+  $status = node_type_save($content_type);
+
+
+  // add peristant variables that control settings
+  variable_set('additional_settings__active_tab_' . $name, 'edit-menu');
+  variable_set('node_preview_' . $name, 1);
+  variable_set('node_options_' . $name, array(0 => 'status'));
+  variable_set('node_submitted_' . $name, 0);
+  variable_set('menu_options_' . $name, array('main-menu'));
+  variable_set('menu_parent_' . $name, 'main-menu:0');
+
+  // Replacement rule for the messages.
+$t_args = array('%name' => $content_type->name);
+  if ($status == SAVED_UPDATED) { // update case
+    drupal_set_message($t('The content type %name has been updated.', $t_args));
+  }
+  elseif ($status == SAVED_NEW) { // create case
+    drupal_set_message($t('The content type %name has been added.', $t_args));
+    watchdog('node', 'Added content type %name.', $t_args, WATCHDOG_NOTICE, l($t('view'), 'admin/structure/types'));
+  }
+
+  _create_add_page_menu_link();
+}
+
+function _create_add_page_menu_link() {
+    $item_basic_pages_menu = array(
+    'link_path' => 'admin/client_cms/manage-basic-pages',
+    'link_title' => 'Manage Pages',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_basic_pages',
+    'weight' => '-50',
+    );
+  $item_basic_pages_menu_mid = menu_link_save($item_basic_pages_menu);
+
+    $item_add_basic_page = array(
+    'link_path' => 'node/add/basic-page',
+    'link_title' => 'Add Page',
+    'menu_name' => 'client-cms-menu',
+    'router_path' => 'admin/client_cms/manage_basic_pages/add',
+    'plid' => $item_basic_pages_menu_mid,
+    );
+  $item_add_basic_page_mid = menu_link_save($item_add_basic_page);
+}

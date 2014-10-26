@@ -1,0 +1,8 @@
+name = Client CMS
+description = Allows webshops to build client focused management menus
+package = Client CMS
+core = 7.x
+
+dependencies[] = admin_menu
+
+configure = admin/config/client_cms/settings

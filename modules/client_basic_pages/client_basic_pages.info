@@ -1,0 +1,10 @@
+name = Client Basic Pages
+description = Provides a Basic Page type this is customised to maximise adding page content efficiently.
+package = Client CMS
+core = 7.x
+
+dependencies[] = insert
+dependencies[] = views
+dependencies[] = views_bulk_operations
+
+files[] = client_basic_pages.inc

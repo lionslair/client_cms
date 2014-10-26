@@ -1,0 +1,106 @@
+#content {
+  padding-left: 10px !important;
+}
+div#navigation,
+div#toppanel,
+div#breadcrumb,
+div#tabs-primary,
+div.form-item div.description,
+span.form-required,
+div#sidebar-left,
+div#footer{
+  display: none !important;
+}
+.sidebar-left #content {
+  padding-left: 0px !important;
+  width:438px;
+}
+#content-wrap{
+  max-width: 458px !important;
+  min-width: 456px !important;
+}
+.tr{
+  padding: 0px !important;
+}
+label{
+  background-color: #FFF !important;
+  width: auto !important;
+  color: #497699;
+}
+.level-1{
+  background: none repeat scroll 0 0 #FFFFFF !important;
+  border: 1px solid #436985 !important;
+  padding: 0px !important;
+  min-height:240px;
+}
+#content-wrap{
+  margin: 210px auto 10px !important;
+}
+div.messages{
+  border: none !important;
+  margin: 0 !important;
+}
+form{
+  height: 240px;
+}
+span.form-title{
+  background:url("../images/login-form-header-bg.gif") repeat-x scroll 0 0 #FFFFFF !important;
+  border-bottom:1px solid #436985 !important;
+  color:white;
+  display:block;
+  height:23px;
+  padding:3px 0 0 10px;
+  width:426px;
+  font: bold 13px/160% Arial, Tahoma, Helvetica, sans-serif;
+}
+.form-item {
+  margin:17px auto 0 !important;
+  width:85%;
+}
+form#user-login .form-checkbox{
+  top: 0;
+}
+div.form-item input.form-text{
+  width: 360px;
+  border: 2px inset;
+  padding: 3px 0;
+}
+#edit-actions{
+  float: right;
+}
+form#user-login #edit-submit{
+  background:url("../images/login-form-lock-icon.gif") no-repeat scroll 10px 0 #FFFFFF;
+  border:medium none;
+  color:#696A6A;
+  float:right;
+  font-weight:normal;
+  margin:-55px 44px 0 0;
+  outline:medium none;
+  padding-top:31px;
+  text-transform:none;
+}
+div.help-link{
+  background:url("../images/login-form-question-icon.gif") no-repeat scroll 0px 2px #FFFFFF !important;
+  margin:9px 0 0 35px;
+  padding-left: 16px;
+  width:100px;
+  font-size: 10px;
+}
+div.help-link a{
+  color: #696a6a;
+  text-decoration: none;
+}
+/* User Password Forgot Page */
+form#user-pass input#edit-submit{
+  float: right;
+  margin: -24px 39px 0 0;
+}
+
+div#branding {
+  display: none;
+}
+
+#content {
+  margin: 210px auto 10px !important;
+}
+

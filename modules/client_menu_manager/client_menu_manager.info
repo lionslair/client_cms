@@ -1,0 +1,8 @@
+name = Client Menu Manager
+description = Provides the ability to manage a CMS menu, a main menu and a custom menu layout.
+package = Client CMS
+core = 7.x
+
+dependencies[] = special_menu_items
+dependencies[] = client_cms
+configure = admin/config/client_cms/menu_manager

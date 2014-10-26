@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Perform setup tasks when the module is installed.
+ * Implements hook_install().
+ */
+function client_cms_install() {
+  $path = array(
+    'source' => 'client_cms/admin_login',
+    'alias' => 'cms'
+  );
+  path_save($path);
+
+  // Setup the default date format
+  variable_set('date_format_client_cms_short', 'd/m/Y');
+
+  $menus = array(
+    array(
+      'menu_name' => 'client-cms-menu',
+      'title' => 'Client CMS Menu',
+      'description' => 'Hold all the links for the CMS',
+    ),
+  );
+
+// Save menu group into menu_custom table
+  foreach ($menus as $menu) {
+    // Look the table first if the data does exist
+    if (!menu_load($menu['menu_name'])) {
+      // Save the record if the data does not exist
+      menu_save($menu);
+    }
+  }
+
+  // create the filter format
+  $html_text_format = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'weight' => 0,
+    'filters' => array(
+      // Escape all HTML.
+      'filter_html_escape' => array(
+        'weight' => -10,
+        'status' => 0,
+      ),
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 0,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 0,
+        'status' => 0,
+      ),
+    ),
+  );
+  $html_text_format = (object) $html_text_format;
+  filter_format_save($html_text_format);
+}

@@ -1,0 +1,44 @@
+<?php
+
+module_load_include('inc', 'client_basic_pages', 'client_basic_pages');
+
+/**
+ * Implements hook_block_info().
+ */
+function client_basic_pages_block_info() {
+  $blocks['basic_page_updates'] = array(
+    'info' => t(' Basic Pages - Latest Updates:'),
+    'cache' => DRUPAL_NO_CACHE,
+    'properties' => array(
+      'administrative' => TRUE,
+      ),
+    'status' => 0,
+    );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function client_basic_pages_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'basic_page_updates':
+    $block['subject'] = t('Basic Pages - Latest Updates');
+    $output = _get_recent_page_updates();
+    $block['content'] = render($output);
+    break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function client_basic_pages_views_api() {
+  return array(
+    'api' => 3,
+    );
+}
