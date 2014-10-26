@@ -4,5 +4,6 @@ package = Client CMS
 core = 7.x
 
 dependencies[] = admin_menu
+dependencies[] = special_menu_items
 
 configure = admin/config/client_cms/settings
